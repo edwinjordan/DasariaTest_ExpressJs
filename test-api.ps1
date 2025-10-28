@@ -1,5 +1,5 @@
 # ISP Management System API Test Script (PowerShell)
-# Author: Oskar Pra Andrea Sussetyo
+# Author: Edwin Yordan Laksono
 
 $BaseUrl = "http://localhost:3000/api"
 $Token = ""

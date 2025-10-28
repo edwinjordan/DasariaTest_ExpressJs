@@ -3,6 +3,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 require('dotenv').config();
 
 // Import middleware
@@ -17,8 +19,17 @@ const app = express();
 // Trust proxy for rate limiting behind reverse proxy
 app.set('trust proxy', 1);
 
-// Security middleware
-app.use(helmet());
+// Security middleware - configure helmet to allow Swagger UI
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            scriptSrc: ["'self'", "'unsafe-inline'"],
+            imgSrc: ["'self'", "data:", "https:"],
+        }
+    }
+}));
 
 // CORS middleware
 app.use(cors({
@@ -49,6 +60,14 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Swagger documentation endpoint
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    explorer: true,
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'ISP Management API Docs',
+    customfavIcon: '/favicon.ico'
+}));
+
 // API routes
 app.use('/api', routes);
 
@@ -58,8 +77,9 @@ app.get('/', (req, res) => {
         success: true,
         message: 'Welcome to ISP Management System API',
         version: '1.0.0',
-        author: 'Oskar Pra Andrea Sussetyo',
-        documentation: '/api/docs',
+        author: 'Edwin Yordan Laksono',
+        swagger_documentation: '/api-docs',
+        api_documentation: '/api/docs',
         health_check: '/api/health'
     });
 });
@@ -86,7 +106,8 @@ const server = app.listen(PORT, () => {
 ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║  🚀 Server running on port: ${PORT}                                                                                          ║
 ║  🌍 Environment: ${process.env.NODE_ENV || 'development'}                                                                                      ║
-║  📚 API Documentation: http://localhost:${PORT}/api/docs                                                                       ║
+║  � Swagger Documentation: http://localhost:${PORT}/api-docs                                                                   ║
+║  �📚 API Documentation: http://localhost:${PORT}/api/docs                                                                       ║
 ║  ❤️  Health Check: http://localhost:${PORT}/api/health                                                                          ║
 ║  📊 Database: MySQL (${process.env.DB_NAME || 'isp_management'})                                                                                ║
 ║                                                                                                                            ║
@@ -98,6 +119,7 @@ const server = app.listen(PORT, () => {
 ║  ✅ JWT Authentication                                                                                                     ║
 ║  ✅ Rate Limiting & Security Headers                                                                                      ║
 ║  ✅ Input Validation & Error Handling                                                                                     ║
+║  ✅ Interactive Swagger API Documentation                                                                                 ║
 ║                                                                                                                               ║
 ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
     `);

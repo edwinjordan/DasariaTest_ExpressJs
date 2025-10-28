@@ -54,7 +54,34 @@ Sistem manajemen ISP yang dikembangkan menggunakan Express.js dengan database My
 
 ## API Documentation
 
-Akses dokumentasi API di: `http://localhost:3000/api/docs`
+### 📖 Interactive Swagger Documentation
+
+Aplikasi ini dilengkapi dengan **Swagger/OpenAPI 3.0** untuk dokumentasi API yang interaktif dan lengkap.
+
+**Akses Swagger UI**: http://localhost:3000/api-docs
+
+#### Fitur Swagger:
+- ✅ **Interactive Testing** - Test semua endpoint langsung dari browser
+- ✅ **Authentication** - Login dan authorize dengan JWT token
+- ✅ **Request/Response Schemas** - Lihat struktur data lengkap
+- ✅ **80+ Documented Endpoints** - Semua endpoint terdokumentasi
+- ✅ **Try It Out** - Execute requests dan lihat real responses
+
+#### Cara Menggunakan:
+1. Buka http://localhost:3000/api-docs
+2. Login melalui endpoint `POST /auth/login`
+3. Copy token dari response
+4. Klik tombol "Authorize" di Swagger UI
+5. Paste token dengan format: `Bearer YOUR_TOKEN_HERE`
+6. Sekarang Anda bisa test semua protected endpoints!
+
+**Detail lengkap**: Lihat [SWAGGER_IMPLEMENTATION.md](./SWAGGER_IMPLEMENTATION.md)
+
+---
+
+### 📚 Static API Documentation
+
+Akses dokumentasi statis di: http://localhost:3000/api/docs
 
 ### Authentication
 
@@ -65,7 +92,27 @@ Authorization: Bearer <your-jwt-token>
 
 ### Default Users
 
-Setelah menjalankan schema SQL, Anda dapat membuat user pertama melalui endpoint `/api/auth/register`.
+Setelah menjalankan schema SQL, gunakan credentials berikut untuk testing:
+
+```javascript
+// Administrator (Full Access)
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+// Support Staff
+{
+  "email": "staff@example.com", 
+  "password": "staff123"
+}
+
+// Manager
+{
+  "email": "manager@example.com",
+  "password": "manager123"
+}
+```
 
 ### Endpoints Utama
 
@@ -197,7 +244,7 @@ Database schema tersedia di `database/schema.sql` dengan fitur:
 
 ## Author
 
-**Oskar Pra Andrea Sussetyo**
+**Edwin Yordan Laksono**
 
 ## License
 

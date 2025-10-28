@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ISP Management System API Test Script
-# Author: Oskar Pra Andrea Sussetyo
+# Author: Edwin Yordan Laksono
 
 BASE_URL="http://localhost:3000/api"
 TOKEN=""

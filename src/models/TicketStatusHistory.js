@@ -50,9 +50,9 @@ class TicketStatusHistory extends BaseModel {
             LEFT JOIN tickets t ON tsh.ticket_id = t.id
             LEFT JOIN customers c ON t.customer_id = c.id
             ORDER BY tsh.changed_at DESC
-            LIMIT ?
+            LIMIT ${parseInt(limit)}
         `;
-        return await this.db.query(sql, [limit]);
+        return await this.db.query(sql);
     }
 
     async getHistoryStats() {

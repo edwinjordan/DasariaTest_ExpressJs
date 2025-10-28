@@ -1,5 +1,5 @@
 -- ISP Management System Database Schema
--- Author: Oskar Pra Andrea Sussetyo
+-- Author: Edwin Yordan Laksono
 
 -- Create database
 CREATE DATABASE IF NOT EXISTS isp_management;
