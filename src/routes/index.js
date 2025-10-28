@@ -11,6 +11,7 @@ const servicePackageRoutes = require('./servicePackages');
 const roleRoutes = require('./roles');
 const permissionRoutes = require('./permissions');
 const ticketCategoryRoutes = require('./ticketCategories');
+const ticketStatusHistoryRoutes = require('./ticketStatusHistories');
 
 // API Routes
 router.use('/auth', authRoutes);
@@ -22,6 +23,7 @@ router.use('/service-packages', servicePackageRoutes);
 router.use('/roles', roleRoutes);
 router.use('/permissions', permissionRoutes);
 router.use('/ticket-categories', ticketCategoryRoutes);
+router.use('/ticket-status-histories', ticketStatusHistoryRoutes);
 
 // Health check endpoint
 router.get('/health', (req, res) => {
@@ -88,6 +90,13 @@ router.get('/docs', (req, res) => {
                 'POST /api/ticket-categories': 'Create new category (Admin/Agent NOC)',
                 'PUT /api/ticket-categories/:id': 'Update category (Admin/Agent NOC)',
                 'DELETE /api/ticket-categories/:id': 'Delete category (Admin only)'
+            },
+            ticketStatusHistories: {
+                'GET /api/ticket-status-histories': 'List all status history records',
+                'GET /api/ticket-status-histories/stats': 'Get status change statistics',
+                'GET /api/ticket-status-histories/recent': 'Get recent status changes',
+                'GET /api/ticket-status-histories/ticket/:ticketId': 'Get history for specific ticket',
+                'GET /api/ticket-status-histories/:id': 'Get specific history entry'
             },
             subscriptions: {
                 'GET /api/subscriptions': 'List all subscriptions',
